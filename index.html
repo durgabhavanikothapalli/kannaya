@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Valentine 💖</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+text-align:center;
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+color:white;
+overflow-x:hidden;
+}
+
+.screen{
+display:none;
+padding:20px;
+}
+
+.active{
+display:block;
+}
+
+h1{
+margin-top:60px;
+font-size:26px;
+}
+
+button{
+padding:12px 20px;
+margin:10px;
+border:none;
+border-radius:25px;
+font-size:16px;
+cursor:pointer;
+}
+
+.primary{
+background:white;
+color:#ff416c;
+}
+
+.danger{
+background:#900;
+color:white;
+}
+
+.gift-btn{
+background:white;
+color:#ff416c;
+}
+
+.card{
+background:rgba(255,255,255,0.2);
+padding:15px;
+border-radius:15px;
+margin-top:20px;
+}
+
+input{
+padding:10px;
+border-radius:20px;
+border:none;
+width:70%;
+}
+
+.heart{
+position:fixed;
+bottom:-10px;
+font-size:20px;
+animation:floatUp 5s linear infinite;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen" class="screen active">
+<h1>Enter Secret Code 💌</h1>
+<p>(Hint: Your nickname)</p>
+<input type="password" id="passInput">
+<br>
+<button class="primary" onclick="checkPassword()">Enter 💖</button>
+</div>
+
+<!-- Background Romantic Song -->
+<iframe 
+    width="0" 
+    height="0" 
+    src="https://youtu.be/NdKZ8kslVI0?si=snxhnbpPT7V2itRR"
+    frameborder="0"
+    allow="autoplay"
+    allowfullscreen>
+</iframe>
+
+
+<!-- QUESTION SCREEN -->
+<div id="questionScreen" class="screen">
+<h1 id="question">Will You Be My Valentine Forever? 💍💖</h1>
+<button class="primary" onclick="yesClicked()">Yes 😍</button>
+<button class="danger" onclick="noClicked()">No 😢</button>
+</div>
+
+<!-- GIFTS SCREEN -->
+<div id="giftScreen" class="screen">
+<h1>Choose Your Gift 🎁</h1>
+<button class="gift-btn" onclick="showQuiz()">🎁 Gift 1</button>
+<button class="gift-btn" onclick="showLetter()">🎁 Gift 2</button>
+<button class="gift-btn" onclick="showVoice()">🎁 Gift 3</button>
+
+<div id="contentArea"></div>
+</div>
+
+<audio id="voice">
+<source src="myvoice.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let noCount=0;
+
+function checkPassword(){
+let input=document.getElementById("passInput").value.toLowerCase();
+if(input==="kannaya"){
+showScreen("questionScreen");
+}else{
+alert("Wrong code ❤️ Try again.");
+}
+}
+
+function showScreen(id){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+}
+
+function noClicked(){
+noCount++;
+if(noCount==1)
+document.getElementById("question").innerText="Please think again 🥺";
+else if(noCount==2)
+document.getElementById("question").innerText="Are you really sure? 😭";
+else if(noCount==3)
+document.getElementById("question").innerText="My heart will break 💔";
+else
+document.getElementById("question").innerText="Destiny says click YES 😌";
+}
+
+function yesClicked(){
+showScreen("giftScreen");
+startHearts();
+}
+
+function showQuiz(){
+document.getElementById("contentArea").innerHTML=`
+<div class='card'>
+<h3>🧠 Love Quiz</h3>
+<p>Who is the luckiest man in the world?</p>
+<button onclick='quizAnswer()'>You 💖</button>
+<button onclick='quizAnswer()'>Me 😎</button>
+<p id='quizResult'></p>
+</div>`;
+}
+
+function quizAnswer(){
+document.getElementById("quizResult").innerText="Correct: YOU 😍 Because you have me!";
+}
+
+function showLetter(){
+document.getElementById("contentArea").innerHTML=`
+<div class='card'>
+<h3>💌 Love Letter</h3>
+<p>
+Happy Valentine’s Day Kannaya ❤️<br><br>
+You are my Valentine forever 💖<br>
+I am lucky to have you and your family in my life.<br>
+My love can't be expressed in words and i wish it lasts forever.<br>
+This bond is made in heaven for sure ✨as the proof of it ur making me blush every day since 3 years<br><br>
+Love you bangaram 💘
+From ur srimathi......
+</p>
+</div>`;
+}
+
+function showVoice(){
+document.getElementById("contentArea").innerHTML=`
+<div class='card'>
+<h3>🎤 Your Special Voice Message</h3>
+<p>Press play below ❤️</p>
+</div>`;
+document.getElementById("voice").play();
+}
+
+function startHearts(){
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),5000);
+},500);
+}
+</script>
+
+</body>
+</html>

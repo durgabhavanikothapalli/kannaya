@@ -9,8 +9,8 @@ body{
 margin:0;
 font-family:Arial, sans-serif;
 text-align:center;
-background:linear-gradient(135deg,#ff416c,#ff4b2b);
-color:white;
+background-colour:#ffe6f2;
+color:#ff416c;
 overflow-x:hidden;
 }
 
@@ -91,15 +91,6 @@ animation:floatUp 5s linear infinite;
 <button class="primary" onclick="checkPassword()">Enter 💖</button>
 </div>
 
-<!-- Background Romantic Song -->
-<iframe 
-    width="0" 
-    height="0" 
-    src="https://youtu.be/NdKZ8kslVI0?si=snxhnbpPT7V2itRR"
-    frameborder="0"
-    allow="autoplay"
-    allowfullscreen>
-</iframe>
 
 
 <!-- QUESTION SCREEN -->
@@ -120,7 +111,7 @@ animation:floatUp 5s linear infinite;
 </div>
 
 <audio id="voice">
-<source src="myvoice.mp3" type="audio/mpeg">
+<source src="myvoice.ogg" type="audio/ogg">
 </audio>
 
 <script>
@@ -161,9 +152,9 @@ function showQuiz(){
 document.getElementById("contentArea").innerHTML=`
 <div class='card'>
 <h3>🧠 Love Quiz</h3>
-<p>Who is the luckiest man in the world?</p>
-<button onclick='quizAnswer()'>You 💖</button>
-<button onclick='quizAnswer()'>Me 😎</button>
+<p>Who is the luckiest person in the world?</p>
+<button onclick='quizAnswer()'>me 💖</button>
+<button onclick='quizAnswer()'>you 😎</button>
 <p id='quizResult'></p>
 </div>`;
 }
@@ -193,9 +184,16 @@ document.getElementById("contentArea").innerHTML=`
 <div class='card'>
 <h3>🎤 Your Special Voice Message</h3>
 <p>Press play below ❤️</p>
+<br>
+<button class='primary' onclick='playVoice()'>▶ Play</button>
 </div>`;
+}
+
+function playVoice(){
 document.getElementById("voice").play();
 }
+
+
 
 function startHearts(){
 setInterval(()=>{

@@ -35,7 +35,14 @@ border:none;
 border-radius:25px;
 font-size:16px;
 cursor:pointer;
+transition:0.3s;
 }
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 15px rgba(255,255,255,0.8);
+}
+
 
 .primary{
 background:white;
@@ -72,6 +79,12 @@ bottom:-10px;
 font-size:20px;
 animation:floatUp 5s linear infinite;
 }
+.sparkle{
+position:fixed;
+font-size:14px;
+animation:floatUp 4s linear infinite;
+}
+
 
 @keyframes floatUp{
 0%{transform:translateY(0);opacity:1;}
@@ -113,6 +126,11 @@ animation:floatUp 5s linear infinite;
 <audio id="voice">
 <source src="myvoice.ogg" type="audio/ogg">
 </audio>
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
 
 <script>
 let noCount=0;
@@ -142,11 +160,12 @@ document.getElementById("question").innerText="My heart will break 💔";
 else
 document.getElementById("question").innerText="Destiny says click YES 😌";
 }
-
 function yesClicked(){
 showScreen("giftScreen");
 startHearts();
+document.getElementById("bgMusic").play();
 }
+
 let currentQuestion = 0;
 
 let quizData = [
@@ -228,23 +247,44 @@ document.getElementById("contentArea").innerHTML = `
 </div>`;
 }
 }
-
-
 function showLetter(){
 document.getElementById("contentArea").innerHTML=`
 <div class='card'>
 <h3>💌 Love Letter</h3>
-<p>
-Happy Valentine’s Day Kannaya ❤️<br><br>
-You are my Valentine forever 💖<br>
-I am lucky to have you and your family in my life.<br>
-My love can't be expressed in words and i wish it lasts forever.<br>
-This bond is made in heaven for sure ✨as the proof of it ur making me blush every day since 3 years<br><br>
+<p id="typedLetter"></p>
+</div>
+`;
+
+let text = `Happy Valentine’s Day Kannaya ❤️
+
+You are my Valentine forever 💖
+I am lucky to have you and your family in my life.
+My love can't be expressed in words and I wish it lasts forever.
+This bond is made in heaven ✨
+You make me blush every day since 3 years ❤️
+
 Love you bangaram 💘
-From ur srimathi......
-</p>
-</div>`;
+From ur srimathi...`;
+
+typeEffect(text);
 }
+
+function typeEffect(text){
+let i = 0;
+let speed = 40;
+let target = document.getElementById("typedLetter");
+target.innerHTML = "";
+
+function typing(){
+if(i < text.length){
+target.innerHTML += text.charAt(i);
+i++;
+setTimeout(typing, speed);
+}
+}
+typing();
+}
+
 
 function showVoice(){
 document.getElementById("contentArea").innerHTML=`
@@ -260,18 +300,30 @@ function playVoice(){
 document.getElementById("voice").play();
 }
 
-
-
 function startHearts(){
 setInterval(()=>{
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=Math.random()*100+"vw";
+
+// ❤️ Create Heart
+let heart = document.createElement("div");
+heart.className = "heart";
+heart.innerHTML = "❤️";
+heart.style.left = Math.random()*100 + "vw";
 document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),5000);
+
+// ✨ Create Sparkle
+let sparkle = document.createElement("div");
+sparkle.className = "sparkle";
+sparkle.innerHTML = "✨";
+sparkle.style.left = Math.random()*100 + "vw";
+document.body.appendChild(sparkle);
+setTimeout(()=>sparkle.remove(),4000);
+
 },500);
 }
+
+
+
 </script>
 
 </body>

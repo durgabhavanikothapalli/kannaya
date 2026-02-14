@@ -147,21 +147,88 @@ function yesClicked(){
 showScreen("giftScreen");
 startHearts();
 }
+let currentQuestion = 0;
+
+let quizData = [
+{
+question: "Who is the luckiest person in the world? 💖",
+options: ["Rakesh 💖", "Bhavani 😎"],
+correct: 0,
+message: "Correct 😍 Because Rakesh has Bhavani!"
+},
+{
+question: "What is my favorite nickname? 💕",
+options: ["Nana", "Bangaram 💛"],
+correct: 1,
+message: "Yes 😘 Bangaram makes me feel special every time!"
+},
+{
+question: "Who is my favorite person in your family? 💞",
+options: ["Atthaya 👑", "Rakesh"],
+correct: 0,
+message: "Correct ❤️ Because she gave me my world!"
+},
+{
+question: "What do you like the most in me? 🥰",
+options: ["Smile 😊", "Care 💗"],
+correct: null,
+message: "Thank you Kannaya 😘"
+}
+];
 
 function showQuiz(){
-document.getElementById("contentArea").innerHTML=`
+currentQuestion = 0;
+displayQuestion();
+}
+
+function displayQuestion(){
+let q = quizData[currentQuestion];
+
+let buttons = "";
+
+q.options.forEach((option, index) => {
+buttons += `<button onclick="checkAnswer(${index})">${option}</button>`;
+});
+
+document.getElementById("contentArea").innerHTML = `
 <div class='card'>
 <h3>🧠 Love Quiz</h3>
-<p>Who is the luckiest person in the world?</p>
-<button onclick='quizAnswer()'>rakesh 💖</button>
-<button onclick='quizAnswer()'>bhavani 😎</button>
+<p>${q.question}</p>
+${buttons}
 <p id='quizResult'></p>
 </div>`;
 }
 
-function quizAnswer(){
-document.getElementById("quizResult").innerText="Correct: 😍 Because he have bhavani!";
+function checkAnswer(selected){
+let q = quizData[currentQuestion];
+
+if(q.correct === null){
+document.getElementById("quizResult").innerText = q.message;
+setTimeout(nextQuestion,1500);
+return;
 }
+
+if(selected === q.correct){
+document.getElementById("quizResult").innerText = q.message;
+setTimeout(nextQuestion,1500);
+}else{
+document.getElementById("quizResult").innerText = "Oops 😜 Try again my love!";
+}
+}
+
+function nextQuestion(){
+currentQuestion++;
+if(currentQuestion < quizData.length){
+displayQuestion();
+}else{
+document.getElementById("contentArea").innerHTML = `
+<div class='card'>
+<h3>💖 Quiz Finished 💖</h3>
+<p>You completed my love quiz Kannaya 😘</p>
+</div>`;
+}
+}
+
 
 function showLetter(){
 document.getElementById("contentArea").innerHTML=`
